@@ -10,6 +10,7 @@ if __name__ == '__main__':
     with socket(AF_INET, SOCK_DGRAM) as udp_socket:
         udp_socket.connect((IP, PORT))
         udp_socket.settimeout(TIMEOUT)
+        rtts = []
         for seq_num in range(10):
             start = datetime.datetime.now()
             message = 'Ping seq_number={seq_number} time={time}'
@@ -18,8 +19,10 @@ if __name__ == '__main__':
             udp_socket.sendall(msg_to_send)
             try:
                 data = udp_socket.recv(BUFF_SIZE)
-                end = datetime.datetime.now()
+                rtts.append((datetime.datetime.now() - start).microseconds)
                 print(data.decode())
-                print(f'RTT: {(end - start).microseconds} microseconds')
             except timeout:
-                print('Request timed out')
+                pass
+        loss = (1 - len(rtts) / 10.0) * 100
+        print(f'10 packets transmitted, {len(rtts)} received, {round(loss, 2)}% pocket_loss')
+        print(f'rtt min-max-avg = {min(rtts)}-{max(rtts)}-{round(sum(rtts)/len(rtts), 2)}')
