@@ -38,7 +38,7 @@
 8. * Да, сообщение было фрагментировано на 3 ip-датаграммы
 ![](imgs/lab10_9.jpg)
 
-   * Меняются поля: `Checksum`, `Fragment offset`. Теоретически может меняться и `Total length`.
+   * Меняются поля: `Checksum`, `Flags`, `Fragment offset`. Теоретически может меняться и `Total length`.
     
 ![](imgs/lab10_10.jpg)
 
