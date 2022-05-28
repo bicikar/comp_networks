@@ -83,8 +83,7 @@ def get_route(hostname):
                             (timeReceived - timeSent) * 1000, addr[0]))
                     return
                 else:
-                    print(
-                        "error")
+                    print("error")
                     break
             finally:
                 mySocket.close()
